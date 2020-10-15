@@ -14,8 +14,8 @@
 </head>
 
 <body>
-<div class="container"
-    <h1>Strive Team Generator</h1>
+<div class="container">
+        <h1>Strive Team Generator</h1>
     <div class="row">
         <div class="col">
             <div class="input-group">
@@ -48,6 +48,9 @@
         </ul>
     </div>
     <button class="button" onclick="assign()">Assign</button>
+    <button onclick='window.location.href="Homework.html"'>
+        Reset Site
+      </button>
     <hr></hr>
     <div>
         <div class="row" id="Teamlist">
@@ -94,15 +97,32 @@
             let colArray = document.querySelectorAll(".team")
             let randomCol = colArray[Math.floor(Math.random() * colArray.length)];
             let name = liArray[getRandom()]
-            const listItem = document.createElement("li")
             if(liArray.length === 0){
                 alert("You have no more Members to assign")
             } else{ 
+            const listItem = document.createElement("li")
+            let button = document.createElement("button")
+            button.innerText = "Remove"
+            button.setAttribute("id", "RemoveButton") 
+            listItem.setAttribute("id", "addedMember") 
             listItem.innerHTML = name.innerHTML
+            let itemText = listItem.innerHTML
+            listItem.appendChild(button)
             randomCol.appendChild(listItem)
             name.remove()
+            button.onclick = function(){
+                let mainList = document.getElementById("MainList")
+                console.log(mainList)
+                let li = document.createElement("li")
+                li.setAttribute("id", "TeamMembers")
+                li.innerText = itemText
+                mainList.appendChild(li)
+                this.parentElement.remove()
+            }
             }
         }
+        
+
     </script>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
