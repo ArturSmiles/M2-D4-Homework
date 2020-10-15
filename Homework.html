@@ -14,6 +14,7 @@
 </head>
 
 <body>
+<div class="container"
     <h1>Strive Team Generator</h1>
     <div class="row">
         <div class="col">
@@ -53,11 +54,13 @@
 
         </div>
     </div>
+</div>
     <!-- Optional JavaScript; choose one of the two! -->
     <script>
         function addName() {
             const name = document.getElementById("addName")
             const listItem = document.createElement("li")
+            listItem.setAttribute("id", "TeamMembers")
             const mainList = document.getElementById("MainList")
             listItem.innerHTML = name.value
             mainList.appendChild(listItem)
@@ -67,29 +70,38 @@
         function addTeam() {
             const teamNum = document.getElementById("TeamSelect").value
             const teamList = document.getElementById("Teamlist");
-            console.log(teamList)
-            for(let x = 0; x < teamNum; x++){
+            const checkTeam = document.getElementsByClassName("team")
+            if(checkTeam.length < 5 || undefined){
+                for(let x = 0; x < teamNum; x++){
                 const colDiv = document.createElement("div")
                 colDiv.className = "col team"
                 colDiv.innerHTML = "Team: " + (x+1)
-                console.log(x)
                 teamList.appendChild(colDiv)
+                }
+            } else{
+                alert("Reached Max Ammount of Teams")
             }
         }
 
+        function getRandom() {
+            let liArray = document.querySelectorAll("#TeamMembers")
+            let randomnum = Math.floor(Math.random() * liArray.length)
+            return randomnum
+        }
+
         function assign() {
-            let liArray = document.querySelectorAll("li")
-            let liStrArray = []
+            let liArray = document.querySelectorAll("#TeamMembers")
             let colArray = document.querySelectorAll(".team")
             let randomCol = colArray[Math.floor(Math.random() * colArray.length)];
-            console.log(randomCol)
-            for (let x = 0; x < liArray.length; x++) {
-                liStrArray.push(liArray[x].innerHTML)
-            }
-            let name = liStrArray[Math.floor(Math.random() * liStrArray.length)];
+            let name = liArray[getRandom()]
             const listItem = document.createElement("li")
-            listItem.innerHTML = name
+            if(liArray.length === 0){
+                alert("You have no more Members to assign")
+            } else{ 
+            listItem.innerHTML = name.innerHTML
             randomCol.appendChild(listItem)
+            name.remove()
+            }
         }
     </script>
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
